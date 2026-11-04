@@ -20,6 +20,18 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Local authentication setup
+
+Authentication uses Better Auth with a local SQLite database. Before starting the app:
+
+1. Copy `.env.example` to `.env.local`.
+2. Set `BETTER_AUTH_SECRET` to a random secret of at least 32 characters. For example, generate one with `node -e "console.log(require('node:crypto').randomBytes(32).toString('base64url'))"`. Keep the generated value private and do not commit `.env.local`.
+3. Keep `BETTER_AUTH_URL` set to the URL where the app runs (the default is `http://localhost:3000`).
+4. Initialize the authentication tables with `npx auth@latest migrate`.
+5. Start the app with `npm run dev`.
+
+The SQLite database is created as `database.sqlite` in the project root and is git-ignored. For deployments that do not provide persistent local storage, configure Better Auth with a managed database instead.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
