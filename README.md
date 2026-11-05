@@ -32,6 +32,10 @@ Authentication uses Better Auth with a local SQLite database. Before starting th
 
 The SQLite database is created as `database.sqlite` in the project root and is git-ignored. For deployments that do not provide persistent local storage, configure Better Auth with a managed database instead.
 
+## Contact form email delivery
+
+The contact form uses the Resend API. Configure `RESEND_API_KEY`, `RESEND_FROM_EMAIL` (a sender verified with Resend), and `RESEND_TO_EMAIL` (the inbox that should receive messages) in the deployment environment. Until all three values are set, the API reports that delivery is unavailable rather than showing a false success.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

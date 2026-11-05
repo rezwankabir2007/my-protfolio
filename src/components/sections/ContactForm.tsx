@@ -45,7 +45,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900/80 sm:p-8">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)] dark:border-white/[0.09] dark:bg-[#321a3b]/75 sm:p-8">
       <div className="grid gap-5 md:grid-cols-2">
         <div>
           <label htmlFor="name" className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">
@@ -54,11 +54,14 @@ export function ContactForm() {
           <input
             id="name"
             type="text"
+            autoComplete="name"
+            aria-invalid={Boolean(errors.name)}
+            aria-describedby={errors.name ? 'name-error' : undefined}
             {...register('name')}
-            className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none ring-0 transition focus:border-blue-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
+            className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-violet-500 dark:border-white/10 dark:bg-[#24102c] dark:text-slate-100 dark:placeholder:text-white/30 dark:focus:border-violet-200/40"
             placeholder="Your name"
           />
-          {errors.name ? <p className="mt-2 text-sm text-red-500">{errors.name.message}</p> : null}
+          {errors.name ? <p id="name-error" className="mt-2 text-sm text-red-500">{errors.name.message}</p> : null}
         </div>
 
         <div>
@@ -68,11 +71,14 @@ export function ContactForm() {
           <input
             id="email"
             type="email"
+            autoComplete="email"
+            aria-invalid={Boolean(errors.email)}
+            aria-describedby={errors.email ? 'email-error' : undefined}
             {...register('email')}
-            className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none ring-0 transition focus:border-blue-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
+            className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-violet-500 dark:border-white/10 dark:bg-[#24102c] dark:text-slate-100 dark:placeholder:text-white/30 dark:focus:border-violet-200/40"
             placeholder="you@example.com"
           />
-          {errors.email ? <p className="mt-2 text-sm text-red-500">{errors.email.message}</p> : null}
+          {errors.email ? <p id="email-error" className="mt-2 text-sm text-red-500">{errors.email.message}</p> : null}
         </div>
       </div>
 
@@ -83,11 +89,13 @@ export function ContactForm() {
         <input
           id="subject"
           type="text"
+          aria-invalid={Boolean(errors.subject)}
+          aria-describedby={errors.subject ? 'subject-error' : undefined}
           {...register('subject')}
-          className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none ring-0 transition focus:border-blue-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
+          className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-violet-500 dark:border-white/10 dark:bg-[#24102c] dark:text-slate-100 dark:placeholder:text-white/30 dark:focus:border-violet-200/40"
           placeholder="Project inquiry"
         />
-        {errors.subject ? <p className="mt-2 text-sm text-red-500">{errors.subject.message}</p> : null}
+        {errors.subject ? <p id="subject-error" className="mt-2 text-sm text-red-500">{errors.subject.message}</p> : null}
       </div>
 
       <div>
@@ -97,30 +105,34 @@ export function ContactForm() {
         <textarea
           id="message"
           rows={6}
+          aria-invalid={Boolean(errors.message)}
+          aria-describedby={errors.message ? 'message-error' : undefined}
           {...register('message')}
-          className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none ring-0 transition focus:border-blue-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
+          className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-violet-500 dark:border-white/10 dark:bg-[#24102c] dark:text-slate-100 dark:placeholder:text-white/30 dark:focus:border-violet-200/40"
           placeholder="Tell me about your project, idea, or opportunity."
         />
-        {errors.message ? <p className="mt-2 text-sm text-red-500">{errors.message.message}</p> : null}
+        {errors.message ? <p id="message-error" className="mt-2 text-sm text-red-500">{errors.message.message}</p> : null}
       </div>
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <button
           type="submit"
           disabled={isSubmitting}
-          className="inline-flex items-center justify-center gap-2 rounded-full bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex items-center justify-center gap-2 rounded-full bg-violet-100 px-5 py-3 text-sm font-semibold text-[#32163b] transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-70"
         >
           {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
           {isSubmitting ? 'Sending...' : 'Send Message'}
         </button>
 
         <p className="text-sm text-slate-500 dark:text-slate-400">
-          Email delivery is configurable and secure when credentials are available.
+          Messages are delivered by email when the contact service is configured.
         </p>
       </div>
 
       {message ? (
         <p
+          role={submitState === 'error' ? 'alert' : 'status'}
+          aria-live="polite"
           className={`rounded-2xl border px-4 py-3 text-sm ${
             submitState === 'success'
               ? 'border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-500/40 dark:bg-emerald-500/10 dark:text-emerald-300'

@@ -1,20 +1,35 @@
 import { NextResponse } from 'next/server';
 
+import { contactSchema } from '@/lib/validations';
+
 const resendApiKey = process.env.RESEND_API_KEY;
-const resendFromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+const resendFromEmail = process.env.RESEND_FROM_EMAIL;
+const resendToEmail = process.env.RESEND_TO_EMAIL;
 
 export async function POST(request: Request) {
-  const body = await request.json();
+  let body: unknown;
 
-  if (!resendApiKey) {
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ message: 'Please submit a valid contact form.' }, { status: 400 });
+  }
+
+  const parsed = contactSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json({ message: 'Please check the form fields and try again.' }, { status: 400 });
+  }
+
+  if (!resendApiKey || !resendFromEmail || !resendToEmail) {
     return NextResponse.json(
       {
-        message:
-          'Email delivery is not configured yet. Set RESEND_API_KEY and RESEND_FROM_EMAIL in your environment variables to enable sending.',
+        message: 'Email delivery is not configured. Set RESEND_API_KEY, RESEND_FROM_EMAIL, and RESEND_TO_EMAIL to enable contact form delivery.',
       },
       { status: 503 },
     );
   }
+
+  const { name, email, subject, message } = parsed.data;
 
   try {
     const response = await fetch('https://api.resend.com/emails', {
@@ -25,24 +40,16 @@ export async function POST(request: Request) {
       },
       body: JSON.stringify({
         from: resendFromEmail,
-        to: ['your-email@example.com'],
-        subject: `[Portfolio Contact] ${String(body.subject || 'New message')}`,
-        html: `
-          <h2>New portfolio message</h2>
-          <p><strong>Name:</strong> ${String(body.name || '')}</p>
-          <p><strong>Email:</strong> ${String(body.email || '')}</p>
-          <p><strong>Subject:</strong> ${String(body.subject || '')}</p>
-          <p><strong>Message:</strong> ${String(body.message || '')}</p>
-        `,
+        to: [resendToEmail],
+        reply_to: email,
+        subject: `[Portfolio Contact] ${subject}`,
+        text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
       }),
     });
 
     if (!response.ok) {
-      const errorText = await response.text();
       return NextResponse.json(
-        {
-          message: `Delivery failed: ${errorText || 'The email service rejected the request.'}`,
-        },
+        { message: 'Email delivery failed. Please try again later or contact me by email.' },
         { status: 500 },
       );
     }
@@ -50,9 +57,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: 'Your message has been sent successfully.' }, { status: 200 });
   } catch {
     return NextResponse.json(
-      {
-        message: 'The email service is temporarily unavailable. Please try again later.',
-      },
+      { message: 'The email service is temporarily unavailable. Please try again later or contact me by email.' },
       { status: 500 },
     );
   }
