@@ -60,7 +60,7 @@ export default function Home() {
           <div className="mt-4 flex items-center gap-3 text-xl font-medium text-slate-600 dark:text-slate-300 sm:text-2xl">
             <span>Web Developer</span>
             <span className="text-blue-600 dark:text-blue-400">|</span>
-            <span>Frontend Developer</span>
+            <span>Full-Stack Developer</span>
           </div>
 
           <p className="mt-5 max-w-xl text-lg leading-8 text-slate-600 dark:text-slate-300">

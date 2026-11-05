@@ -46,7 +46,7 @@ export function Footer() {
           <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300">
             <li>
               <a href="mailto:your-email@example.com" className="transition hover:text-blue-600 dark:hover:text-blue-400">
-                your-email@example.com
+                rezwan9923@gmail.com
               </a>
             </li>
             <li>

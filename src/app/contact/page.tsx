@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 };
 
 const contactMethods = [
-  { label: 'Email', value: 'your-email@example.com', href: 'mailto:your-email@example.com', icon: Mail },
-  { label: 'LinkedIn', value: 'linkedin.com/in/your-profile', href: 'https://www.linkedin.com/in/your-profile', icon: Globe },
-  { label: 'GitHub', value: 'github.com/your-username', href: 'https://github.com/your-username', icon: GitBranch },
-  { label: 'WhatsApp', value: '+880000000000', href: 'https://wa.me/880000000000', icon: MessageCircle },
+  { label: 'Email', value: 'rezwan9923@gmail.com', href: 'mailto:rezwan9923@gmail.com', icon: Mail },
+  { label: 'LinkedIn', value: 'https://www.linkedin.com/in/md-razoan-kabir2007/', href: 'https://www.linkedin.com/in/md-razoan-kabir2007/', icon: Globe },
+  { label: 'GitHub', value: 'github.com/rezwankabir2007', href: 'https://github.com/rezwankabir2007', icon: GitBranch },
+  { label: 'WhatsApp', value: '+8801788996192', href: 'https://wa.me/01788996192', icon: MessageCircle },
 ];
 
 export default function ContactPage() {
