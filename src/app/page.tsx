@@ -75,7 +75,7 @@ export default function Home() {
             </span>
 
             <p className="mt-8 text-sm font-medium uppercase tracking-[0.3em] text-violet-200/75">Hello, I&apos;m</p>
-          <h1 className="mt-3 max-w-3xl bg-gradient-to-b from-fuchsia-400 via-purple-500 to-orange-400 bg-clip-text text-5xl font-semibold leading-[1.05] tracking-[-0.055em] text-transparent sm:text-6xl lg:text-7xl">
+            <h1 className="mt-3 max-w-3xl bg-gradient-to-b from-fuchsia-400 via-purple-500 to-orange-400 bg-clip-text text-5xl font-semibold leading-[1.05] tracking-[-0.055em] text-transparent sm:text-6xl lg:text-7xl">
               Razoan Kabir
               <span className="home-name-gradient mt-3 block bg-gradient-to-r from-violet-400 via-fuchsia-600 to-white bg-clip-text text-3xl font-medium tracking-[-0.04em] text-transparent sm:text-4xl lg:text-[2.7rem]">
                 Mondol
@@ -105,7 +105,7 @@ export default function Home() {
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-6 py-3.5 text-sm font-semibold text-white/90 backdrop-blur transition hover:border-violet-200/40 hover:bg-white/[0.08]"
               >
                 <Download className="h-4 w-4" />
-                Download Resume
+                Download CV
               </a>
             </div>
 
@@ -228,11 +228,14 @@ export default function Home() {
             description="A selection of project concepts across education, creative workspaces, and helpful market information."
             align="center"
           />
-          <div className="mt-12 grid gap-6 lg:grid-cols-3">
-            {featuredProjects.map((project) => (
+
+
+          <div className="mt-12 grid gap-6 lg:grid-cols-2">
+            {featuredProjects.slice(0, 3).map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
           </div>
+
           <div className="mt-9 text-center">
             <Link href="/projects" className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white/80 transition hover:border-violet-200/40 hover:bg-white/[0.05] hover:text-white">
               Explore all projects
